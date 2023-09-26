@@ -7,10 +7,12 @@ class voice(commands.Cog):
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
         if before.channel is None and after.channel is not None:
+            #Join
             print(f'{member.guild.id}/{after.channel.id}')
             print(f'{member.id}: Join Voice')
 
         elif before.channel is not None and after.channel is None:
+            #Leave
             print(f'{member.guild.id}/{before.channel.id}')
             print(f'{member.id}: Leave Voice')
 
