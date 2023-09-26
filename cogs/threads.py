@@ -9,14 +9,12 @@ class threads(commands.Cog):
     @commands.command(name='list_threads')
     async def list_threads(self, ctx):
         if isinstance(ctx.channel, discord.TextChannel):
-            threads = ctx.channel.threads
-            if threads:
-                for thread in threads:
-                    button = Button(style=discord.ButtonStyle.link, label=thread.name, url=f'https://discord.com/channels/{ctx.guild.id}/{thread.id}')
+            if ctx.channel.threads:
+                for a in ctx.channel.threads:
                     view = discord.ui.View()
-                    view.add_item(button)
+                    view.add_item(Button(style=discord.ButtonStyle.link, label=a.name, url=f'https://discord.com/channels/{ctx.guild.id}/{a.id}'))
                     await ctx.send(view=view)
-                    #await ctx.send(f"{thread.name}: https://discord.com/channels/{ctx.guild.id}/{thread.id}")
+                    #await ctx.send(f"{a.name}: https://discord.com/channels/{ctx.guild.id}/{a.id}")
             else:
                 await ctx.send("No Threads.")
         else:
