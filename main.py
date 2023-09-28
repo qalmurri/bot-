@@ -3,14 +3,13 @@ from discord.ext import commands
 import traceback
 import sys
 
-
 bot = commands.Bot(command_prefix=".", intents=discord.Intents.all())
 
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} ({bot.user.id}) on {len(bot.guilds)} Server')
 
-    for a in ['cogs.thread', 'cogs.voice', 'cogs.traffic']:
+    for a in ['cogs.reaction', 'cogs.traffic', 'cogs.message', 'cogs.thread', 'cogs.voice']:
         try:
             await bot.load_extension(a)
             print(f'Load {a}: Ok')

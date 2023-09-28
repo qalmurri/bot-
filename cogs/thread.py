@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 from discord.ui import Button
 
-
 class threads(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -17,7 +16,6 @@ class threads(commands.Cog):
                                          label=a.name,
                                          url=f'https://discord.com/channels/{ctx.guild.id}/{a.id}'))
                     await ctx.send(view=b)
-                    #await ctx.send(f"{a.name}: https://discord.com/channels/{ctx.guild.id}/{a.id}")
             else:
                 await ctx.send("No Threads.")
         else:
