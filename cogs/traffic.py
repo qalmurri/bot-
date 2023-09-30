@@ -15,8 +15,8 @@ class traffic(commands.Cog):
         except FileNotFoundError:
             return {}
     
-    user_react = load_json_file("user_react.json")
-    user_message = load_json_file("user_message.json")
+    user_react = load_json_file("stats/user_react.json")
+    user_message = load_json_file("stats/user_message.json")
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
