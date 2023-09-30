@@ -9,7 +9,7 @@ bot = commands.Bot(command_prefix=".", intents=discord.Intents.all())
 async def on_ready():
     print(f'{bot.user.name} ({bot.user.id}) on {len(bot.guilds)} Server')
 
-    for a in ['cogs.reaction', 'cogs.message', 'cogs.voice']:
+    for a in ['cogs.act.voice', 'cogs.act.reaction', 'cogs.act.message']:
         try:
             await bot.load_extension(a)
             print(f'Load {a}: Ok')
