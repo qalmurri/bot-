@@ -6,6 +6,7 @@ extensions = ['cogs.act.message', 'cogs.act.reaction', 'cogs.act.voice']
 
 @bot.event
 async def on_ready():
+    await bot.tree.sync()
     print(f'{bot.user.name} ({bot.user.id}) on {len(bot.guilds)} Server')
 
 @bot.event
