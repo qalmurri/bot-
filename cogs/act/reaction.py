@@ -6,37 +6,38 @@ class reaction(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    def guild_folder(self, member):
-        guild_id = member.guild.id
-        directory = f"stats/{guild_id}/"
-        self.file_path = f"stats/{guild_id}/react.json"
+    @commands.Cog.listener()
+    async def on_ready(self) -> None:
+        print(f'Exstension Reaction Ready')
+
+    def guild(self, member):
+        self.file_path = f"stats/{member.guild.id}/react.json"
         self.user_react = self.load()
-        if not os.path.exists(directory):
-            os.makedirs(directory)
+
+        if not os.path.exists(f"stats/{member.guild.id}/"):
+            os.makedirs(f"stats/{member.guild.id}/")
 
     def load(self):
         if os.path.exists(self.file_path):
-            with open(self.file_path, "r") as file:
-                return json.load(file)
+            with open(self.file_path, "r") as f:
+                return json.load(f)
         return {}
 
     def save(self):
-        with open(self.file_path, "w") as file:
-            json.dump(self.user_react, file, indent=4)
+        with open(self.file_path, "w") as f:
+            json.dump(self.user_react, f, indent=4)
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
-        self.guild_folder(user)
-        user_id = str(user.id)
-        message_author_id = str(reaction.message.author.id)
+        self.guild(user)
 
-        if user_id not in self.user_react:
-            self.user_react[user_id] = {"react": 0, "reacted": 0}
-        self.user_react[user_id]["react"] += 1
+        if str(user.id) not in self.user_react:
+            self.user_react[str(user.id)] = {"react": 0, "reacted": 0}
+        self.user_react[str(user.id)]["react"] += 1
 
-        if message_author_id not in self.user_react:
-            self.user_react[message_author_id] = {"react": 0, "reacted": 0}
-        self.user_react[message_author_id]["reacted"] += 1
+        if str(reaction.message.author.id) not in self.user_react:
+            self.user_react[str(reaction.message.author.id)] = {"react": 0, "reacted": 0}
+        self.user_react[str(reaction.message.author.id)]["reacted"] += 1
         self.save()
 
         print(f'{reaction.message.guild.id}/{reaction.message.channel.id}/{reaction.message.id} ')
